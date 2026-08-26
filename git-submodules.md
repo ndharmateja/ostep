@@ -32,6 +32,23 @@ git remote add upstream https://github.com/remzi-arpacidusseau/ostep-homework.gi
 
 ```
 
+To get the latest updates from the author's original repository into your submodule, you fetch the upstream changes, merge them, and then update your main repository's commit pointer. Navigate into your submodule folder and pull from `upstream`:
+
+```bash
+cd ostep-hw
+git fetch upstream
+git merge upstream/master   # Use 'main' if the author's default branch is main
+
+```
+
+* **If there are no conflicts:** Git merges the author's new commits cleanly into your local branch.
+* **If you modified author files and there's a conflict:** Git will mark the conflicts in those files. Resolve the conflict markers in your editor, then run:
+```bash
+git add .
+git commit -m "Resolve merge conflicts with upstream author updates"
+
+```
+
 ---
 
 ### Step 4: Daily Workflow
