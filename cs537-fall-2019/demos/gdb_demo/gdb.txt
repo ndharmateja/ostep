@@ -1,0 +1,65 @@
+GDB Commands:
+
+1. Compile the C program with the -g flag since the symbols have to be loaded in order to debug
+	gcc -g -o crash crash.c -Wall -Werror
+
+2. gdb on the binary created
+	gdb crash
+
+3. Run the program on the gdb prompt
+	(gdb) run
+
+4. Backtrace
+	(gdb) backtrace
+
+5. Navigate to a line/frame where the crash occurred
+	(gdb) f 5 (the first frame of crash.c)
+
+6. Print variables, array elements, addresses
+	(gdb) print line
+	(gdb) print line[0]
+	(gdb) print &line (stack address)
+
+7. Breakpoint
+	(gdb) break crash.c:10 (Breakpoint 1 gets created)
+   Restart the program to check the breakpoint
+   	(gdb) r (stops at the breakpoint, that is, line 10 here)
+   View the next line of code
+	(gdb) next
+   Delete a breakpoint
+	(gdb) delete 1
+
+8. Conditional Breakpoint
+	(gdb) break crash.c:10 if num == 512 (Breakpoint gets created only if num is 512)
+   Restart the program
+	(gdb) r
+
+9. Get information about all the breakpoints created 
+	(gdb) info breakpoints
+ 
+10. Watchpoint 
+	(gdb) watch sum
+	(gdb) continue (shows the old and new values of sum)
+
+11. To integrate gdb with xv6, open xv6 directory and type on one terminal(terminal 1):
+	make qemu-nox-gdb 
+
+    Open another terminal(terminal 2), navigate to the xv6 directory and type:
+	gdb
+
+   Add the xv6 directory path in the ./gdbinit file as mentioned on the prompt in terminal 2
+
+    If the (gdb) prompt does not appear, you can use Ctrl + c
+
+    When you type the command "continue" on terminal 2, it starts the shell in terminal 1.
+
+    You can create a breakpoint on any of the files, for example:
+	(gdb) break trap.c : 35
+	(gdb) continue
+
+    Also, you can print the variables
+	(gdb) print tf->trapno
+
+    Quit both the terminals
+    Terminal 1: Ctrl+a+x
+    Terminal 2: quit
